@@ -18,6 +18,7 @@ jobs:
       # Use the output from the `approved` step
       - name: Get the approval time
         run: echo "The time was ${{ steps.approved.outputs.time }}"
+        if: ${{ steps.approved.outputs.isApproved }}
       - name: Remove the ready for review label
         id: remove_label_ready
         uses: msotoperdomo/label-prs-actions@test-branch
