@@ -9,18 +9,12 @@ label_pr_remove() {
       exit 1
     fi
 
-    if [[ "${action}" == "submitted" ]] && [[ "${state}" == "approved" ]]; then
+    curl -sSL \
+      -H "${AUTH_HEADER}" \
+      -H "${API_HEADER}" \
+      -X DELETE \
+      "${URI}/repos/${GITHUB_REPOSITORY}/issues/${number}/labels/${REMOVE_LABEL}"
 
-      curl -sSL \
-        -H "${AUTH_HEADER}" \
-        -H "${API_HEADER}" \
-        -X DELETE \
-        "${URI}/repos/${GITHUB_REPOSITORY}/issues/${number}/labels/${REMOVE_LABEL}"
-
-        time=$(date)
-        echo ::set-output name=time::${time}
-    else
-        echo "Ignoring event ${action} ${state}"
-    fi
+      time=$(date)
 
 }
