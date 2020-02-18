@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Label a pr when approved
         id: approved
-        uses: msotoperdomo/label-prs-actions@v1
+        uses: msotoperdomo/label-prs-actions@v2
         with:
           task: 'label_pr_when_approved'
         env:
@@ -19,11 +19,11 @@ jobs:
       - name: Get the approval time
         run: echo "The time was ${{ steps.approved.outputs.time }}"
       - name: Remove a label from a pr
-          id: remove_label
-          uses: msotoperdomo/label-prs-actions@v1
-          with:
-            task: 'label_pr_remove'
-          if: ${{ steps.approved.outputs.isApproved }}
-          env:
-            GH_TOKEN: ${{ secrets.GH_TOKEN }}
-            REMOVE_LABEL: "ready"
+        id: remove_label
+        uses: msotoperdomo/label-prs-actions@v1
+        with:
+          task: 'label_pr_remove'
+        if: ${{ steps.approved.outputs.isApproved }}
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          REMOVE_LABEL: "ready"

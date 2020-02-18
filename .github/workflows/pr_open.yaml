@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Label a pr when open
         id: approved
-        uses: msotoperdomo/label-prs-actions@v1
+        uses: msotoperdomo/label-prs-actions@v2
         with:
           task: 'label_pr_add'
         env:
