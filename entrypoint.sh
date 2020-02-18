@@ -1,9 +1,11 @@
 #!/bin/bash
-set -e
+set -ex
 
 
 label_pr_when_approved() {
     echo "This action will label a PR when approved"
+    time=$(date)
+    echo ::set-output name=time::${time}
 }
 
 remove_label_pr() {
@@ -13,8 +15,8 @@ remove_label_pr() {
 
 PR_ACTION="$1"
 
-if [[ -z "$GITHUB_TOKEN" ]]; then
-  echo "Set the GITHUB_TOKEN env variable."
+if [[ -z "$GH_TOKEN" ]]; then
+  echo "Set the GH_TOKEN env variable."
   exit 1
 fi
 
