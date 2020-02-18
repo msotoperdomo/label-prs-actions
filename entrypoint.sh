@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-for f in $(ls ./actions); do source ./actions/${f}; done
+for f in $(ls /actions); do source /actions/${f}; done
 
 
 if [[ -z "$GH_TOKEN" ]]; then

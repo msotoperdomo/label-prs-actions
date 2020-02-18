@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Label a pr when approved
         id: approved
-        uses: msotoperdomo/label-prs-actions@v2
+        uses: msotoperdomo/label-prs-actions@test-branch
         with:
           task: 'label_pr_when_approved'
         env:

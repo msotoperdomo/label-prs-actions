@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-label_pr_remove() {
+label_pr_add() {
     echo "This action will add a label of a PR"
 
     if [[ -z "${ADD_LABEL}" ]]; then
@@ -9,12 +9,12 @@ label_pr_remove() {
       exit 1
     fi
 
-    curl -sSL \
-      -H "${AUTH_HEADER}" \
-      -H "${API_HEADER}" \
-      -X POST \
-      -H "Content-Type: application/json" \
-      -d "{\"labels\":[\"${ADD_LABEL}\"]}" \
-      "${URI}/repos/${GITHUB_REPOSITORY}/issues/${number}/labels"
+    local result=$(curl -sSL \
+        -H "${AUTH_HEADER}" \
+        -H "${API_HEADER}" \
+        -X POST \
+        -H "Content-Type: application/json" \
+        -d "{\"labels\":[\"${ADD_LABEL}\"]}" \
+        "${URI}/repos/${GITHUB_REPOSITORY}/issues/${number}/labels")
 
 }
