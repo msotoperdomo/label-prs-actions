@@ -10,7 +10,8 @@ label_pr_when_approved() {
       exit 1
     fi
 
-    if [[ "${action}" == "submitted" ]] && [[ "${state}" == "approved" ]]; then
+    echo "::set-output name=isApproved::false"
+    if [[ "${state}" == "approved" ]]; then
 
         body=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/repos/${GITHUB_REPOSITORY}/pulls/${number}/reviews?per_page=100")
         reviews=$(echo "$body" | jq --raw-output '.[] | {state: .state} | @base64')
@@ -30,20 +31,22 @@ label_pr_when_approved() {
           if [[ "${approvals}" == "${APPROVALS}" ]]; then
             echo "Labeling pull request"
 
-            curl -sSL \
+            local response=$(curl -sSL \
               -H "${AUTH_HEADER}" \
               -H "${API_HEADER}" \
               -X POST \
               -H "Content-Type: application/json" \
               -d "{\"labels\":[\"${ADD_LABEL}\"]}" \
-              "${URI}/repos/${GITHUB_REPOSITORY}/issues/${number}/labels"
-              echo ::set-output name=isApproved::true
+              "${URI}/repos/${GITHUB_REPOSITORY}/issues/${number}/labels")
+
+             echo "response: ${response}"
+             echo "::set-output name=isApproved::true"
             break
           fi
         done
 
         time=$(date)
-        echo ::set-output name=time::${time}
+        echo "::set-output name=time::${time}"
     else
         echo "Ignoring event ${action} ${state}"
     fi

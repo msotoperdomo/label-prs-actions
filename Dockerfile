@@ -1,7 +1,7 @@
 FROM alpine:3.10.3
 
 LABEL "com.github.actions.name"="Label pull requests"
-LABEL "com.github.actions.description"="Auto-label pull requests"
+LABEL "com.github.actions.description"="Auto-label pull requests actions"
 LABEL "com.github.actions.icon"="tag"
 LABEL "com.github.actions.color"="gray-dark"
 
