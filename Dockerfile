@@ -10,4 +10,6 @@ LABEL version="1.0.0"
 RUN apk add --no-cache bash curl jq
 
 ADD entrypoint.sh /entrypoint.sh
+ADD actions /actions
+
 ENTRYPOINT ["/entrypoint.sh"]

@@ -1,9 +1,10 @@
-on: [push]
+name: Label prs based on reviews
+on: [pull_request_review]
 
 jobs:
-  label_job:
+  label_pr_when_approved:
     runs-on: ubuntu-latest
-    name: A job to label prs
+    name: A job to label prs when approved
     steps:
       - name: Label a pr when approved
         id: approved
@@ -12,6 +13,17 @@ jobs:
           task: 'label_pr_when_approved'
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          APPROVALS: "2"
+          ADD_LABEL: "approved"
       # Use the output from the `approved` step
-      - name: Get the output time
+      - name: Get the approval time
         run: echo "The time was ${{ steps.approved.outputs.time }}"
+      - name: Remove a label from a pr
+          id: remove_label
+          uses: msotoperdomo/label-prs-actions@v1
+          with:
+            task: 'label_pr_remove'
+          if: ${{ steps.approved.outputs.isApproved }}
+          env:
+            GH_TOKEN: ${{ secrets.GH_TOKEN }}
+            REMOVE_LABEL: "ready"

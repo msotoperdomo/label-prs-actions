@@ -1,0 +1,17 @@
+name: Actions when a PR is open
+on: [pull_request]
+
+jobs:
+  label_pr_when_open:
+    runs-on: ubuntu-latest
+    name: A job to label prs when open
+    steps:
+      - name: Label a pr when open
+        id: approved
+        uses: msotoperdomo/label-prs-actions@v1
+        with:
+          task: 'label_pr_add'
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          APPROVALS: "2"
+          ADD_LABEL: "ready"

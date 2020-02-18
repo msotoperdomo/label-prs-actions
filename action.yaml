@@ -6,7 +6,9 @@ inputs:
     required: true
 outputs:
   time: # id of output
-    description: 'The time we greeted you'
+    description: 'The time pr was approved'
+  isApproved: # id of output
+    description: 'If the pr was approved or not '
 runs:
   using: 'docker'
   image: 'Dockerfile'

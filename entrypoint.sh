@@ -1,19 +1,8 @@
 #!/bin/bash
-set -ex
+set -e
 
+for f in $(ls ./actions); do source ./actions/${f}; done
 
-label_pr_when_approved() {
-    echo "This action will label a PR when approved"
-    time=$(date)
-    echo ::set-output name=time::${time}
-}
-
-remove_label_pr() {
-    echo "This action will remove the label of a PR"
-}
-
-
-PR_ACTION="$1"
 
 if [[ -z "$GH_TOKEN" ]]; then
   echo "Set the GH_TOKEN env variable."
@@ -30,16 +19,14 @@ if [[ -z "$GITHUB_EVENT_PATH" ]]; then
   exit 1
 fi
 
-if [[ -z "$PR_ACTION" ]]; then
-  echo "Set the PR_ACTION env variable."
-  exit 1
-fi
+echo "PR ACTION: $@"
+URI="https://api.github.com"
+API_HEADER="Accept: application/vnd.github.v3+json"
+AUTH_HEADER="Authorization: token ${GH_TOKEN}"
 
-echo "PR ACTION: ${PR_ACTION}"
+action=$(jq --raw-output .action "$GITHUB_EVENT_PATH")
+state=$(jq --raw-output .review.state "$GITHUB_EVENT_PATH")
+number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
 
-case "${PR_ACTION}" in
-    label_pr_when_approved)
-        label_pr_when_approved $@;;
-    remove_label_pr)
-        remove_label_pr $@;;
-esac
+
+"$@"
