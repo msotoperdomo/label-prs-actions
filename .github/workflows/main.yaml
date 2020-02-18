@@ -28,3 +28,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           REMOVE_LABEL: "ready%20for%20review"
+      - name: Remove a label from a pr
+        id: remove_label
+        uses: msotoperdomo/label-prs-actions@test-branch
+        with:
+          task: 'label_pr_remove'
+        if: ${{ steps.approved.outputs.isApproved }}
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          REMOVE_LABEL: "approved"
