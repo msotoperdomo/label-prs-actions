@@ -12,7 +12,7 @@ jobs:
         with:
           task: 'label_pr_when_approved'
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           APPROVALS: "1"
           ADD_LABEL: "approved"
       - name: Get the approval time
@@ -25,7 +25,7 @@ jobs:
           task: 'label_pr_remove'
         if: steps.approved.outputs.isApproved == 'true'
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           REMOVE_LABEL: "ready%20for%20review"
       - name: Remove the approved label
         id: remove_label_approved
@@ -34,7 +34,7 @@ jobs:
           task: 'label_pr_remove'
         if: steps.approved.outputs.isApproved == 'false'
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           REMOVE_LABEL: "approved"
       - name: Label a pr when ready for review
         id: ready_for_review
@@ -43,6 +43,6 @@ jobs:
           task: 'label_pr_add'
         if: steps.approved.outputs.isApproved == 'false'
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           ADD_LABEL: "ready for review"
 

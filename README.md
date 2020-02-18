@@ -31,7 +31,7 @@ jobs:
         with:
           task: 'label_pr_add'
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ADD_LABEL: "ready for review"
 ```
 

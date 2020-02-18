@@ -4,8 +4,8 @@ set -e
 for f in $(ls /actions); do source /actions/${f}; done
 
 
-if [[ -z "$GH_TOKEN" ]]; then
-  echo "Set the GH_TOKEN env variable."
+if [[ -z "$GITHUB_TOKEN" ]]; then
+  echo "Set the GITHUB_TOKEN env variable."
   exit 1
 fi
 
@@ -22,7 +22,7 @@ fi
 echo "PR ACTION: $@"
 URI="https://api.github.com"
 API_HEADER="Accept: application/vnd.github.v3+json"
-AUTH_HEADER="Authorization: token ${GH_TOKEN}"
+AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
 
 action=$(jq --raw-output .action "$GITHUB_EVENT_PATH")
 state=$(jq --raw-output .review.state "$GITHUB_EVENT_PATH")
