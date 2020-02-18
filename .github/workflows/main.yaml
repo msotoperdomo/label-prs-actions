@@ -1,5 +1,6 @@
 name: Label prs based on reviews
-on: [pull_request_review]
+on: pull_request_review
+
 
 jobs:
   label_pr_when_approved:
@@ -26,4 +27,4 @@ jobs:
         if: ${{ steps.approved.outputs.isApproved }}
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          REMOVE_LABEL: "ready"
+          REMOVE_LABEL: "ready%20for%20review"

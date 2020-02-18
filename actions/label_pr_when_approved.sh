@@ -10,7 +10,8 @@ label_pr_when_approved() {
       exit 1
     fi
 
-    if [[ "${action}" == "submitted" ]] && [[ "${state}" == "approved" ]]; then
+    echo ::set-output name=isApproved::false
+    if [[ "${state}" == "approved" ]]; then
 
         body=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/repos/${GITHUB_REPOSITORY}/pulls/${number}/reviews?per_page=100")
         reviews=$(echo "$body" | jq --raw-output '.[] | {state: .state} | @base64')

@@ -8,12 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     name: Add the ready label when a pr is open
     steps:
-      - name: Label a pr when open
+      - name: Label a pr when opened
         id: approved
         uses: msotoperdomo/label-prs-actions@test-branch
         with:
           task: 'label_pr_add'
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          APPROVALS: "2"
-          ADD_LABEL: "ready"
+          ADD_LABEL: "ready%20for%20review"
