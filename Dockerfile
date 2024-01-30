@@ -1,4 +1,4 @@
-FROM alpine:3.10.3
+FROM alpine:3.19.1
 
 LABEL "com.github.actions.name"="Label pull requests"
 LABEL "com.github.actions.description"="Auto-label pull requests actions"
